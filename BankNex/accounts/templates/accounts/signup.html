@@ -1,0 +1,168 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup - Bank Application</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fa;
+        }
+
+        /* Navbar Styling */
+        nav {
+            background-color: #4CAF50;
+            padding: 15px 0;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #388E3C;
+        }
+
+        /* Container Styles */
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background-color: white;
+            padding: 30px;
+            margin: 100px auto 20px auto; /* Added margin-top for the navbar */
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 1.8em;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-container {
+            margin-bottom: 10px;
+        }
+
+        .form-container input {
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 1em;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .form-container input:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        button.btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s ease;
+        }
+
+        button.btn:hover {
+            background-color: #388E3C;
+        }
+
+        p {
+            text-align: center;
+            font-size: 1em;
+            color: #555;
+        }
+
+        p a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        p a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+
+            button.btn {
+                font-size: 1em;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'accounts:login' %}">Login</a></li>
+            <li><a href="{% url 'accounts:signup' %}">Signup</a></li>
+        </ul>
+    </nav>
+
+    <!-- Signup Form -->
+    <div class="container">
+        <h2>Create Account</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-container">
+                {{ form.as_p }}
+            </div>
+            <button type="submit" class="btn">Signup</button>
+        </form>
+        <p>Already have an account? <a href="{% url 'accounts:login' %}">Login here</a></p>
+    </div>
+</body>
+</html>

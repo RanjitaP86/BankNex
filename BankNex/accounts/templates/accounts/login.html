@@ -1,0 +1,173 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Bank Application</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        /* Body Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f0f4f8;
+        }
+
+        /* Top Navbar Styling */
+        nav {
+            background-color: #4CAF50;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: flex-end; /* Aligns nav items to the right */
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px; /* Spacing between items */
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 0;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+            padding: 10px;
+            transition: background 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #388E3C;
+            border-radius: 5px;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            margin-top: 80px; /* Add top margin to avoid content overlap with navbar */
+            padding: 20px;
+        }
+
+        /* Login Container */
+        .login-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .login-container h2 {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        form input[type="text"],
+        form input[type="password"] {
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        form button {
+            padding: 0.75rem;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #45a049;
+        }
+
+        .login-container p {
+            margin-top: 1rem;
+        }
+
+        .login-container a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .login-container a:hover {
+            text-decoration: underline;
+        }
+
+        .messages {
+            margin-top: 1rem;
+            list-style: none;
+            padding: 0;
+            color: red;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul li a {
+                font-size: 1em;
+                padding: 8px;
+            }
+
+            .login-container {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navbar -->
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'accounts:login' %}">Login</a></li>
+            <li><a href="{% url 'accounts:signup' %}">Sign Up</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <!-- Login Form -->
+        <div class="login-container">
+            <h2>Login</h2>
+            <form method="POST" action="{% url 'accounts:login' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                <input type="hidden" name="next" value="{{ next }}">
+
+                <button type="submit">Login</button>
+            </form>
+
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <p>Don't have an account? <a href="{% url 'accounts:signup' %}">Sign up here</a></p>
+        </div>
+    </div>
+</body>
+</html>

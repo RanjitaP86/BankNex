@@ -1,0 +1,196 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Your Account</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensures the body takes the full height of the viewport */
+            background-color: #f9fafc;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .logo img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            border-radius: 50%;
+        }
+
+        .navbar .logo h1 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .navbar ul li a:hover {
+            background-color: #388E3C;
+        }
+
+        /* Main Content */
+        .container {
+            margin-top: 80px; /* Prevents overlap with fixed navbar */
+            flex: 1; /* Ensures the container takes up the remaining space */
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            margin: 0;
+            color: #4CAF50;
+        }
+
+        header p {
+            color: #666;
+        }
+
+        /* Account Summary Section */
+        .account-summary {
+            background: #f1f8e9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .account-summary h2 {
+            color: #388E3C;
+            margin-bottom: 15px;
+        }
+
+        .account-summary p {
+            margin: 5px 0;
+            color: #444;
+        }
+
+        .account-summary p strong {
+            color: #2E7D32;
+        }
+
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            color: white;
+            padding: 10px 0;
+            margin-top: auto; /* Pushes the footer to the bottom */
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .navbar ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .navbar ul li a {
+                display: block;
+            }
+
+            .container {
+                margin-top: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar Section -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="{% static 'images/bank_logo.png' %}" alt="Bank Logo">
+            <h1>BankName</h1>
+        </div>
+        <ul>
+            <li><a href="{% url 'accounts:dashboard' %}">Dashboard</a></li>
+            <li><a href="{% url 'accounts:transfer_money' %}">Transfer Funds</a></li>
+            <li><a href="{% url 'accounts:transaction_history' %}">Transaction History</a></li>
+            <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <header>
+            <h1>Welcome to Your Bank Account</h1>
+            <p>Manage your account and perform various transactions</p>
+        </header>
+
+        <main>
+            <section class="account-summary">
+                <h2>Your Account Summary</h2>
+                <p><strong>Account Name:</strong> {{ user.username }}</p>
+                <p><strong>Balance:</strong> ${{ balance }}</p>  <!-- Pass this balance context from your view -->
+                <p><strong>Account Number:</strong> {{ account_number }}</p>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 Bank Application. All rights reserved.</p>
+    </footer>
+</body>
+</html>

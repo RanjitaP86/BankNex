@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction History</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            text-align: center;
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Transaction History</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Sender</th>
+                <th>Receiver</th>
+                <th>Amount</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaction in transactions %}
+            <tr>
+                <td>{{ Transaction.timestamp }}</td>
+                <td>{{ Transaction.sender.user.username }}</td>
+                <td>{{ Transaction.receiver.user.username }}</td>
+                <td>${{ Transaction.amount }}</td>
+                <td>{{ Transaction.status }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No transactions found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        <span>Page {{ transactions.number }} of {{ transactions.paginator.num_pages }}</span>
+        {% if transactions.has_previous %}
+            <a href="?page=1">First</a>
+            <a href="?page={{ transactions.previous_page_number }}">Previous</a>
+        {% endif %}
+        {% if transactions.has_next %}
+            <a href="?page={{ transactions.next_page_number }}">Next</a>
+            <a href="?page={{ transactions.paginator.num_pages }}">Last</a>
+        {% endif %}
+    </div>
+</body>
+</html>
